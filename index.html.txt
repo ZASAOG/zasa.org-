@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZASA Space</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI}
+body{background:#020617;color:white;overflow-x:hidden}
+
+/* STARS BACKGROUND */
+.stars{
+position:fixed;width:100%;height:100%;
+background:transparent;
+z-index:-1;
+}
+.stars::after{
+content:"";
+position:absolute;width:2px;height:2px;
+background:white;
+box-shadow:
+100px 200px white, 300px 400px white, 500px 100px white,
+700px 300px white, 900px 600px white, 1200px 200px white;
+animation:moveStars 60s linear infinite;
+}
+@keyframes moveStars{
+from{transform:translateY(0)}
+to{transform:translateY(-1000px)}
+}
+
+/* NAV */
+nav{
+position:fixed;width:100%;
+display:flex;justify-content:space-between;
+padding:15px 20px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+z-index:1000}
+nav img{width:45px}
+nav button{background:none;border:1px solid white;color:white;padding:5px 10px}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+text-align:center}
+
+.hero h1{
+font-size:48px;
+letter-spacing:3px;
+animation:fadeUp 1s}
+.hero p{opacity:0.7;margin-top:10px}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+/* BUTTON */
+.btn{
+margin-top:20px;
+padding:12px 25px;
+border:1px solid white;
+background:none;color:white;
+cursor:pointer;
+transition:.3s}
+.btn:hover{
+background:white;color:black}
+
+/* SECTION */
+.section{
+padding:80px 20px;
+max-width:900px;margin:auto}
+
+/* CARD */
+.card{
+background:#0b1d3a;
+padding:25px;margin:20px 0;
+border-radius:10px;
+border:1px solid #1e3a8a}
+
+/* FLOAT */
+.float{
+position:fixed;bottom:20px;right:20px}
+.float a{
+display:block;margin:5px;padding:12px;
+border-radius:50%;background:#111}
+
+/* CHAT */
+#chat{
+position:fixed;bottom:90px;right:20px;
+background:#111;padding:10px;border-radius:10px;
+width:260px;display:none}
+
+/* FADE */
+.fade{opacity:0;transition:1s}
+.fade.show{opacity:1}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<!-- NAV -->
+<nav>
+<img src="logo.png">
+<button onclick="toggleLang()">EN/SW</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+<h1 id="title">ZASA</h1>
+<p id="subtitle">Innovate. Explore. Elevate.</p>
+<button class="btn" onclick="scrollToSection()">Explore</button>
+</div>
+
+<!-- CONTENT -->
+<div class="section fade" id="content">
+
+<div class="card">
+<h2 id="introTitle">UTANGULIZI</h2>
+<p id="introText">
+ZASA ni taasisi ya wanafunzi wa KIST inayolenga kukuza elimu ya aerospace.
+</p>
+</div>
+
+<div class="card">
+<h3 id="visionTitle">DIRA</h3>
+<p id="visionText">Kuwa taasisi inayoongoza Afrika Mashariki.</p>
+</div>
+
+<div class="card">
+<h3 id="missionTitle">DHIMA</h3>
+<p id="missionText">Kutoa elimu, utafiti na ubunifu.</p>
+</div>
+
+<div class="card">
+<h3>KUJISAJILI</h3>
+<a href="form.pdf" class="btn">Pakua Fomu</a>
+<p id="maintain">Huduma ipo kwenye matengenezo</p>
+</div>
+
+<div class="card">
+<h3>KATIBA</h3>
+<a href="constitution.pdf" class="btn">Download Katiba</a>
+</div>
+
+<div class="card">
+<h3>CONTACT</h3>
+<p>📞 0714095979</p>
+</div>
+
+</div>
+
+<!-- FLOAT -->
+<div class="float">
+<a href="https://wa.me/255714095979">💬</a>
+<a onclick="toggleChat()">🤖</a>
+</div>
+
+<!-- CHAT -->
+<div id="chat">
+<b>ZASA AI</b>
+<input id="q" placeholder="Uliza..." style="width:100%">
+<p id="ans"></p>
+</div>
+
+<script>
+
+// SCROLL
+function scrollToSection(){
+document.getElementById("content").scrollIntoView({behavior:'smooth'})
+}
+
+// FADE IN
+window.onload=()=>{
+setTimeout(()=>document.getElementById("content").classList.add("show"),500)
+}
+
+// CHAT
+function toggleChat(){
+chat.style.display = chat.style.display==='block'?'none':'block'
+}
+
+q.onkeypress=e=>{
+if(e.key==='Enter'){
+let t=q.value.toLowerCase()
+if(t.includes("zasa")) ans.innerText="ZASA ni taasisi ya aerospace."
+else ans.innerText="Jaribu swali lingine."
+q.value=""
+}
+}
+
+// LANGUAGE
+let lang="sw"
+function toggleLang(){
+lang = lang==="sw"?"en":"sw"
+
+if(lang==="en"){
+title.innerText="ZASA"
+introTitle.innerText="INTRODUCTION"
+introText.innerText="ZASA is a student aerospace organization."
+visionTitle.innerText="VISION"
+visionText.innerText="To lead in East Africa."
+missionTitle.innerText="MISSION"
+missionText.innerText="Educate and innovate."
+maintain.innerText="Service under maintenance"
+}else{
+title.innerText="ZASA"
+introTitle.innerText="UTANGULIZI"
+introText.innerText="ZASA ni taasisi ya wanafunzi."
+visionTitle.innerText="DIRA"
+visionText.innerText="Kuwa taasisi inayoongoza Afrika Mashariki."
+missionTitle.innerText="DHIMA"
+missionText.innerText="Kutoa elimu na ubunifu."
+maintain.innerText="Huduma ipo kwenye matengenezo"
+}
+}
+
+</script>
+
+</body>
+</html>
