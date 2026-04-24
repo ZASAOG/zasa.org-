@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZASA - Zanzibar Aerospace Students Association</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+color:white;
+background:url('background.jpg') no-repeat center center/cover;
+}
+
+/* OVERLAY */
+.overlay{
+background:rgba(2,8,23,0.85);
+min-height:100vh;
+}
+
+/* LOADER */
+#loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9999;
+}
+
+.loader-text{
+font-size:28px;
+letter-spacing:3px;
+animation:fade 2s infinite;
+}
+
+@keyframes fade{
+0%{opacity:0.2;}
+50%{opacity:1;}
+100%{opacity:0.2;}
+}
+
+/* HEADER */
+.header{
+background:linear-gradient(90deg,#ff8c00,#ffb347);
+padding:15px;
+text-align:center;
+font-weight:bold;
+color:#0b1f3a;
+font-size:18px;
+}
+
+/* MENU */
+.menu-btn{
+position:fixed;
+top:70px;
+left:10px;
+background:#0b1f3a;
+padding:10px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.menu{
+position:fixed;
+top:110px;
+left:10px;
+background:#0b1f3a;
+width:220px;
+border-radius:10px;
+display:none;
+flex-direction:column;
+}
+
+.menu a{
+padding:12px;
+color:white;
+text-decoration:none;
+border-bottom:1px solid #1e3a8a;
+}
+
+.menu a:hover{
+background:#1e3a8a;
+}
+
+/* CONTENT */
+.section{
+padding:20px;
+margin:15px;
+background:rgba(255,255,255,0.05);
+border-radius:15px;
+}
+
+/* BUTTON */
+.btn{
+background:#ff8c00;
+padding:12px 20px;
+border:none;
+border-radius:10px;
+color:white;
+cursor:pointer;
+}
+
+/* POPUP */
+.popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#0b1f3a;
+padding:20px;
+border-radius:15px;
+z-index:2000;
+width:80%;
+max-width:400px;
+}
+
+/* WHATSAPP */
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+padding:15px;
+border-radius:50%;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+<div class="loader-text">ZASA LOADING...</div>
+</div>
+
+<div class="overlay">
+
+<!-- HEADER -->
+<div class="header">
+ZANZIBAR AEROSPACE STUDENTS ASSOCIATION
+</div>
+
+<!-- MENU BUTTON -->
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+<a onclick="showSection('home')">Home</a>
+<a onclick="showSection('register')">Kujisajili</a>
+<a onclick="showSection('constitution')">Constitution</a>
+<a onclick="showSection('contact')">Contact</a>
+</div>
+
+<!-- HOME -->
+<div id="home" class="section">
+<h2>UTANGULIZI</h2>
+<p>
+ZASA (Zanzibar Aerospace Students Association) ni taasisi iliyoanzishwa na wanafunzi wa KARUME INSTITUTE OF SCIENCE AND TECHNOLOGY ili kuwezesha vijana na wanafunzi kuhusu elimu ya anga.
+</p>
+
+<h2>DIRA</h2>
+<p>Kuwa taasisi inayoongoza Afrika Mashariki.</p>
+
+<h2>DHIMA</h2>
+<p>Kutoa elimu, ubunifu na utafiti.</p>
+
+<button class="btn" onclick="openPopup()">Join</button>
+</div>
+
+<!-- REGISTER -->
+<div id="register" class="section" style="display:none;">
+<h2>Kujisajili</h2>
+<button class="btn" onclick="window.open('form.pdf')">Pakua Fomu</button>
+<br><br>
+<button class="btn" onclick="alert('Service under maintenance')">Kujisajili Online</button>
+</div>
+
+<!-- CONSTITUTION -->
+<div id="constitution" class="section" style="display:none;">
+<h2>Katiba</h2>
+<button class="btn" onclick="window.open('constitution.pdf')">Pakua Katiba</button>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="section" style="display:none;">
+<h2>Contact</h2>
+<p>0714095979</p>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+<p>
+Soma katiba vizuri ukiwa tayari kujiunga pakua fomu ya kujiunga ijaze halafu itume kwa mfumo PDF kwa WhatsApp namba 0714095979
+</p>
+<button class="btn" onclick="closePopup()">Close</button>
+</div>
+
+<!-- WHATSAPP -->
+<div class="whatsapp" onclick="window.open('https://wa.me/255714095979')">💬</div>
+
+</div>
+
+<script>
+function toggleMenu(){
+let m=document.getElementById("menu");
+m.style.display=m.style.display==="flex"?"none":"flex";
+m.style.flexDirection="column";
+}
+
+function showSection(s){
+document.getElementById("home").style.display="none";
+document.getElementById("register").style.display="none";
+document.getElementById("constitution").style.display="none";
+document.getElementById("contact").style.display="none";
+
+document.getElementById(s).style.display="block";
+}
+
+function openPopup(){
+document.getElementById("popup").style.display="block";
+}
+
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+
+/* LOADER HIDE */
+window.onload = function(){
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+},2000);
+}
+</script>
+
+</body>
+</html>
