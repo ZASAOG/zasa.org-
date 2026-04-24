@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZASA | Official Website</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:url("background.jpg.png") no-repeat center/cover;
+  color:white;
+}
+
+/* LOADER */
+#loader{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:9999;
+}
+.loader-logo{
+  width:120px;
+  animation:zoom 2s infinite alternate;
+}
+@keyframes zoom{
+  from{transform:scale(0.8);opacity:0.5;}
+  to{transform:scale(1.2);opacity:1;}
+}
+
+/* HEADER */
+header{
+  background:orange;
+  color:#0a1f44;
+  text-align:center;
+  padding:15px;
+  font-weight:bold;
+}
+
+/* MENU */
+.menu-btn{
+  position:absolute;
+  top:70px;
+  left:10px;
+  background:#0a1f44;
+  padding:10px;
+  border-radius:5px;
+  cursor:pointer;
+}
+.menu{
+  position:absolute;
+  top:110px;
+  left:10px;
+  background:#0a1f44;
+  display:none;
+  flex-direction:column;
+}
+.menu button{
+  background:none;
+  color:white;
+  border:none;
+  padding:10px;
+  text-align:left;
+}
+
+/* LANGUAGE */
+.lang-btn{
+  position:absolute;
+  top:70px;
+  right:10px;
+  background:#0a1f44;
+  color:white;
+  padding:10px;
+  border:none;
+  border-radius:5px;
+}
+
+/* SECTIONS */
+.section{
+  display:none;
+  padding:20px;
+}
+.active{
+  display:block;
+}
+
+/* BUTTON */
+.btn{
+  background:orange;
+  border:none;
+  padding:10px 20px;
+  border-radius:5px;
+  color:#0a1f44;
+  font-weight:bold;
+}
+
+/* FLOAT */
+.float{
+  position:fixed;
+  right:10px;
+  bottom:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.float button{
+  border:none;
+  padding:15px;
+  border-radius:50%;
+  background:#0a1f44;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <img src="logo.png.jpeg" class="loader-logo">
+  <h2>ZASA</h2>
+</div>
+
+<!-- HEADER -->
+<header>ZANZIBAR AEROSPACE STUDENTS ASSOCIATION</header>
+
+<!-- MENU BUTTON -->
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+<!-- LANGUAGE -->
+<button class="lang-btn" onclick="toggleLanguage()">EN / SW</button>
+
+<!-- MENU -->
+<div id="menu" class="menu">
+  <button onclick="openSection('home')">Home</button>
+  <button onclick="openSection('join')">Kujisajili</button>
+  <button onclick="openSection('constitution')">Katiba</button>
+  <button onclick="openSection('contact')">Contact</button>
+</div>
+
+<!-- HOME -->
+<div id="home" class="section active">
+<h2 data-sw="UTANGULIZI" data-en="INTRODUCTION">UTANGULIZI</h2>
+<p data-sw="ZASA(Zanzibar Aerospace Students Association) ni taasisi ilioanzishwa na wanafunzi wa KARUME INSTITUTE OF SCIENCE AND TECHNOLOGY ili kuwezesha vijana na wanafunzi kuhusu elimu ya anga"
+data-en="ZASA is a student organization founded by students of Karume Institute of Science and Technology to empower youth in aerospace education">
+ZASA(Zanzibar Aerospace Students Association) ni taasisi...
+</p>
+
+<h2 data-sw="DIRA" data-en="VISION">DIRA</h2>
+<p data-sw="Kuwa taasisi inayoongoza Afrika Mashariki"
+data-en="To be a leading aerospace organization in East Africa">
+Kuwa taasisi inayoongoza Afrika Mashariki
+</p>
+
+<h2 data-sw="DHIMA" data-en="MISSION">DHIMA</h2>
+<p data-sw="Kutoa elimu, ubunifu na utafiti"
+data-en="Provide education, innovation and research">
+Kutoa elimu, ubunifu na utafiti
+</p>
+
+<button class="btn" onclick="joinInfo()">Jiunge</button>
+</div>
+
+<!-- JOIN -->
+<div id="join" class="section">
+<h2>Kujisajili</h2>
+<a href="form.pdf.png" download><button class="btn">Pakua Fomu</button></a>
+<br><br>
+<button class="btn" onclick="alertLang('maintenance')">Online</button>
+</div>
+
+<!-- CONSTITUTION -->
+<div id="constitution" class="section">
+<h2>Katiba</h2>
+<a href="constitution.pdf.docx" download><button class="btn">Download</button></a>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="section">
+<h2>Contact</h2>
+<p>0714095979</p>
+</div>
+
+<!-- FLOAT BUTTONS -->
+<div class="float">
+<button onclick="window.open('https://wa.me/255714095979')">💬</button>
+<button onclick="alert('AI Assistant Coming Soon')">🤖</button>
+</div>
+
+<script>
+window.onload = () => {
+  setTimeout(()=>document.getElementById("loader").style.display="none",2000);
+};
+
+function toggleMenu(){
+  let menu = document.getElementById("menu");
+  menu.style.display = menu.style.display==="flex"?"none":"flex";
+}
+
+function openSection(id){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.getElementById("menu").style.display="none";
+}
+
+let lang="sw";
+function toggleLanguage(){
+  lang = lang==="sw"?"en":"sw";
+  document.querySelectorAll("[data-sw]").forEach(el=>{
+    el.innerText = el.getAttribute("data-"+lang);
+  });
+}
+
+function alertLang(type){
+  if(type==="maintenance"){
+    alert(lang==="sw"?"Huduma ipo kwenye matengenezo":"Service under maintenance");
+  }
+}
+
+function joinInfo(){
+  alert(
+    "Soma katiba vizuri, ukiwa tayari pakua fomu, ijaze kisha tuma PDF kwa WhatsApp 0714095979"
+  );
+}
+</script>
+
+</body>
+</html>
