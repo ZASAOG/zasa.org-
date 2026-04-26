@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZASA</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:url("background.jpg") no-repeat center center fixed;
+  background-size:cover;
+  color:white;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.65);
+  z-index:-1;
+}
+
+#loader{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.spinner{
+  width:60px;
+  height:60px;
+  border:6px solid #ccc;
+  border-top:6px solid orange;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+header{
+  background:orange;
+  color:#0a1f44;
+  text-align:center;
+  padding:15px;
+  font-weight:bold;
+}
+
+.menu-btn{
+  position:absolute;
+  top:70px;
+  left:10px;
+  background:#0a1f44;
+  padding:10px;
+  border-radius:5px;
+  cursor:pointer;
+}
+.menu{
+  position:absolute;
+  top:110px;
+  left:10px;
+  background:#0a1f44;
+  display:none;
+  flex-direction:column;
+}
+.menu button{
+  background:none;
+  color:white;
+  border:none;
+  padding:10px;
+  text-align:left;
+}
+
+.lang-btn{
+  position:absolute;
+  top:70px;
+  right:10px;
+  background:#0a1f44;
+  color:white;
+  padding:10px;
+  border:none;
+  border-radius:5px;
+}
+
+.section{
+  display:none;
+  padding:20px;
+}
+.active{
+  display:block;
+}
+
+.card{
+  background:rgba(0,0,0,0.5);
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+.btn{
+  background:orange;
+  border:none;
+  padding:10px 20px;
+  border-radius:5px;
+  color:#0a1f44;
+  font-weight:bold;
+}
+
+.float{
+  position:fixed;
+  right:10px;
+  bottom:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.float button{
+  border:none;
+  padding:15px;
+  border-radius:50%;
+  background:#0a1f44;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader">
+  <div class="spinner"></div>
+  <h2>ZASA</h2>
+</div>
+
+<header>ZANZIBAR AEROSPACE STUDENTS ASSOCIATION</header>
+
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+<button class="lang-btn" onclick="toggleLanguage()">EN / SW</button>
+
+<div id="menu" class="menu">
+  <button onclick="openSection('home')">Home</button>
+  <button onclick="openSection('join')">Kujisajili</button>
+  <button onclick="openSection('constitution')">Katiba</button>
+  <button onclick="openSection('contact')">Contact</button>
+</div>
+
+<div id="home" class="section active">
+
+<div class="card">
+<h2 data-sw="UTANGULIZI" data-en="INTRODUCTION">UTANGULIZI</h2>
+<p data-sw="ZASA ni taasisi ya wanafunzi wa KIST inayohamasisha elimu ya anga."
+data-en="ZASA is a student organization promoting aerospace education.">
+ZASA ni taasisi...
+</p>
+</div>
+
+<div class="card">
+<h2 data-sw="DIRA" data-en="VISION">DIRA</h2>
+<p data-sw="Kuwa taasisi inayoongoza Afrika Mashariki"
+data-en="To be a leading aerospace organization in East Africa">
+Kuwa taasisi...
+</p>
+</div>
+
+<div class="card">
+<h2 data-sw="DHIMA" data-en="MISSION">DHIMA</h2>
+<p data-sw="Kutoa elimu, ubunifu na utafiti"
+data-en="Provide education, innovation and research">
+Kutoa elimu...
+</p>
+</div>
+
+<button class="btn" onclick="joinInfo()">Jiunge</button>
+
+</div>
+
+<div id="join" class="section">
+<h2>Kujisajili</h2>
+
+<a href="form.pdf" target="_blank">
+<button class="btn">Pakua Fomu</button>
+</a>
+
+<br><br>
+
+<button class="btn" onclick="alertLang('maintenance')">Online</button>
+</div>
+
+<div id="constitution" class="section">
+<h2>Katiba</h2>
+
+<a href="constitution.pdf" target="_blank">
+<button class="btn">Download</button>
+</a>
+
+</div>
+
+<div id="contact" class="section">
+<h2>Contact</h2>
+<p>0714095979</p>
+</div>
+
+<div class="float">
+<button onclick="window.open('https://wa.me/255714095979')">💬</button>
+<button onclick="openAI()">🤖</button>
+</div>
+
+<script>
+
+/* LOADER + LANGUAGE FIX */
+window.onload = ()=>{
+  setTimeout(()=>{
+    document.getElementById("loader").style.display="none";
+  },2000);
+
+  // 👉 HII NDIYO FIX
+  document.querySelectorAll("[data-sw]").forEach(el=>{
+    el.innerText = el.getAttribute("data-"+lang);
+  });
+}
+
+function toggleMenu(){
+  let m=document.getElementById("menu");
+  m.style.display = m.style.display==="flex"?"none":"flex";
+}
+
+function openSection(id){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.getElementById("menu").style.display="none";
+}
+
+let lang="sw";
+
+function toggleLanguage(){
+  lang = lang==="sw"?"en":"sw";
+  document.querySelectorAll("[data-sw]").forEach(el=>{
+    el.innerText = el.getAttribute("data-"+lang);
+  });
+}
+
+function alertLang(type){
+  if(type==="maintenance"){
+    alert(lang==="sw"?"Huduma ipo kwenye matengenezo":"Service under maintenance");
+  }
+}
+
+function joinInfo(){
+  if(lang==="sw"){
+    alert("Soma katiba vizuri, pakua fomu, ijaze kisha tuma PDF WhatsApp 0714095979");
+  }else{
+    alert("Read constitution, download form, fill it and send PDF via WhatsApp 0714095979");
+  }
+}
+
+function openAI(){
+  let q = prompt(lang==="sw" ? "Uliza kuhusu ZASA:" : "Ask about ZASA:");
+  if(!q) return;
+
+  let answer = "";
+
+  if(q.toLowerCase().includes("zasa")){
+    answer = lang==="sw"
+      ? "ZASA ni Zanzibar Aerospace Students Association."
+      : "ZASA is Zanzibar Aerospace Students Association.";
+  }
+  else if(q.toLowerCase().includes("join") || q.toLowerCase().includes("jiunge")){
+    answer = lang==="sw"
+      ? "Pakua fomu, ijaze kisha tuma WhatsApp 0714095979"
+      : "Download the form, fill it and send via WhatsApp 0714095979";
+  }
+  else if(q.toLowerCase().includes("katiba")){
+    answer = lang==="sw"
+      ? "Pakua katiba kwenye menu ya Katiba"
+      : "Download constitution from Constitution menu";
+  }
+  else{
+    answer = lang==="sw"
+      ? "Samahani, sijaelewa swali lako"
+      : "Sorry, I didn't understand your question";
+  }
+
+  alert(answer);
+}
+
+</script>
+
+</body>
+</html>
